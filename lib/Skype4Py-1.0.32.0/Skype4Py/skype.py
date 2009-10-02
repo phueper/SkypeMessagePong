@@ -86,6 +86,8 @@ class APINotifier(SkypeAPINotifier):
                     o = ChatMessage(skype, object_id)
                     if prop_name == 'STATUS':
                         skype._CallEventHandler('MessageStatus', o, str(value))
+                    else:
+                        skype._CallEventHandler('MessageStatus', o, 'UPDATED '+prop_name)
                 elif object_type == 'APPLICATION':
                     o = Application(skype, object_id)
                     if prop_name == 'CONNECTING':
