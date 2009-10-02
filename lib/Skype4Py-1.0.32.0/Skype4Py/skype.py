@@ -813,7 +813,7 @@ class Skype(EventHandlingBase):
             if isinstance(getattr(sms.__class__, name, None), property):
                 setattr(sms, name, value)
             else:
-                raise TypeError('Unknown property: %s' % prop)
+                raise TypeError('Unknown property: %s' % property)
         sms.Send()
         return sms
 

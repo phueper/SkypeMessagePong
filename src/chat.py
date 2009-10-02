@@ -7,6 +7,8 @@ import sys
 import re
 import Skype4Py
 
+from background import Background
+
 # ----------------------------------------------------------------------------------------------------
 # Fired on attachment status change. Here used to re-attach this script to Skype in case attachment is lost. Just in case.
 def OnAttach(status):
@@ -15,7 +17,7 @@ def OnAttach(status):
         skype.Attach();
 
     if status == Skype4Py.apiAttachSuccess:
-       print('******************************************************************************');
+        print('******************************************************************************');
 
 
 # ----------------------------------------------------------------------------------------------------
@@ -23,15 +25,30 @@ def OnAttach(status):
 # Statuses can be: 'UNKNOWN' 'SENDING' 'SENT' 'RECEIVED' 'READ'        
 
 rePlay = re.compile(".*will (.*) spielen.*")
+reViel = re.compile(".*viel viel")
 
 def OnMessageStatus(Message, Status):
+    B = Background()
     Marker = ' ';
     if Message.IsEditable:
         Marker = '* ';
     if (Status == 'RECEIVED' or Status == 'SENT'):
-        m = rePlay.match(Message.Body)
-        if (m):
-            Message.Chat.SendMessage('Aber ich hab keine Lust '+m.group(1)+' zu spielen.')
+        mP = rePlay.match(Message.Body)
+        mV = reViel.match(Message.Body)
+        if (mP):
+            Message.Chat.SendMessage('Aber ich hab keine Lust '+mP.group(1)+' zu spielen.')
+        elif (mV and Message.IsEditable):
+            def repViel(m):
+                print "repViel"
+                x = re.sub("viel viel", "viel viel viel", m.Body)
+                print "attempted viel viel replacement: " + x
+                m.Body = x
+            print "found viel viel"
+            for i in range(7):
+                print i
+                B.runLater(2*i, lambda m: repViel(m), {'m':Message})
+        elif (Message.Body == 'xyzzy'):
+                B.runLater(2, lambda m: m.Chat.SendMessage(m.Body+"?"), {'m':Message})
         elif (Message.Body == '===='):
             Message.Chat.SendMessage('. \n\n\n\n----------------------------\n\n\n\n\n ... sooo weit bin ich noch nicht.')
     if Status == 'RECEIVED':
