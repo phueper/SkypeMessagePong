@@ -1,2 +1,11 @@
+The Skype4Py version in lib has been hacked to deliver
+update events for edited messages.
+
+Background threads are currently inefficient, but if we
+use the same Background object for several background tasks,
+we can make it more efficient.
+
+----------------------------------------------------
+
 pydev + egit in eclipse 3.5 don't suck at all!
 (and that's what the stupid .p* files are for)
