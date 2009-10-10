@@ -688,9 +688,20 @@ public final class Skype {
                                             handleUncaughtException(e);
                                         }
                                     }
-                                }
-                            }
-                        }
+				}
+                            } else if ("EDITED_TIMESTAMP".equals(propertyName)) {
+                                ChatMessageListener[] listeners = chatMessageListeners.toArray(new ChatMessageListener[0]);
+                                ChatMessage chatMessage = ChatMessage.getInstance(id);
+			        for (ChatMessageListener listener : listeners) {
+				    try {
+				        listener.chatMessageEdited(chatMessage);
+    				    } catch (Throwable e) {
+				        handleUncaughtException(e);
+				    }
+			        }
+			    }
+			}
+
                     }
                 };
                 try {
