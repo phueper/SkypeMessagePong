@@ -16,13 +16,21 @@ class SkypeConnector {
         def chatMessageEdited(m:ChatMessage) = funcs._3.apply(m)
       }
   }
+  
+  def msgHandler(m:ChatMessage) {
+    m.getStatus match {
+      case ChatMessage.Status.RECEIVED => println("message received from" + m.getSenderDisplayName + ": " + m.getContent)
+      case ChatMessage.Status.SENT => println("message sent: " + m.getContent)
+    }
+  }
+  
   def connect {
     Connector.getInstance().setApplicationName("SkypeMessagePong,ScalaVersion");
     Skype.setDeamon(false)
     Skype.setDebug(true)
     Skype.addChatMessageListener((
-      (m:ChatMessage) => { println("message received from" + m.getSenderDisplayName + ": " + m.getContent) },
-      (m:ChatMessage) => { println("message sent: " + m.getContent)},
+      msgHandler,
+      msgHandler,
       (m:ChatMessage) => { println("message edited: " + m.getContent) }
     ))
     
