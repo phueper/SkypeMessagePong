@@ -17,20 +17,14 @@ object SkypeConnector {
       }
   }
   
-  def msgHandler(m:ChatMessage) {
-    m.getStatus match {
-      case ChatMessage.Status.RECEIVED => println("message received from" + m.getSenderDisplayName + ": " + m.getContent)
-      case ChatMessage.Status.SENT => println("message sent: " + m.getContent)
-    }
-  }
-  
   def connect {
     Connector.getInstance().setApplicationName("SkypeMessagePong,ScalaVersion");
     Skype.setDeamon(false)
     Skype.setDebug(true)
+    BackgroundMsgHandler.start
     Skype.addChatMessageListener((
-      msgHandler,
-      msgHandler,
+      (m:ChatMessage) => { BackgroundMsgHandler ! m },
+      (m:ChatMessage) => { BackgroundMsgHandler ! m },
       (m:ChatMessage) => { println("message edited: " + m.getContent) }
     ))
     
