@@ -1,7 +1,7 @@
 import com.skype._
 import com.skype.connector.Connector
 
-class SkypeConnector {
+object SkypeConnector {
   
   
   // converter for anonymous func to ChatMessageListener
