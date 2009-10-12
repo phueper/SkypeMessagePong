@@ -17,10 +17,20 @@ object BackgroundMsgHandler extends Actor {
               }
             }
             case ChatMessage.Status.SENT => { println("message sent...")
-              var rP = new Regex(""".*will (.*) spielen.*""");
+              val rePlay = new Regex(".*will (.*) spielen.*");
+              val reViel = new Regex(".*viel viel");
               m.getContent match {
-                case rP(what) => {
+                case rePlay(what) => {
                   m.getChat.send("Aber ich hab keine Lust " + what + " zu spielen")
+                }
+                case reViel() => {
+                  m.isEditable
+                  for (i <- 0 until 7 ) {
+                  if (/*m.isEditable*/ true) {
+                    val newContent = m.getContent.replaceFirst("viel viel", "viel viel viel")
+                    m.setContent(newContent)
+                  }
+                  }
                 }
                 case "xyzzy" => {
                   m.getChat.send("xyzzy?")
