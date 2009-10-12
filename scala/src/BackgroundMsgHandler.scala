@@ -9,15 +9,20 @@ object BackgroundMsgHandler extends Actor {
     loop {
       receive {
         case m:ChatMessage => {
+          val rePlay = new Regex(".*will (.*) spielen.*");
           m.getStatus match {
             case ChatMessage.Status.RECEIVED => {
-              println("message received from" + m.getSenderDisplayName)
+              println("message received from" + m.getSenderDisplayName + " : " + m.getContent)
               m.getContent match {
-                case _ => println(m.getContent)
+                case rePlay(what) => {
+                  m.getChat.send("Aber ich hab keine Lust " + what + " zu spielen")
+                }
+                case "xyzzy" => {
+                  m.getChat.send("xyzzy?")
+                }
               }
             }
             case ChatMessage.Status.SENT => { println("message sent...")
-              val rePlay = new Regex(".*will (.*) spielen.*");
               val reViel = new Regex(".*viel viel.*");
               m.getContent match {
                 case rePlay(what) => {
