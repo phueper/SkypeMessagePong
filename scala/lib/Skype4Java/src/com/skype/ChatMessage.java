@@ -208,6 +208,14 @@ public final class ChatMessage extends SkypeObject {
     }
 
     /**
+     * Get the content of this CHATMESSAGE.
+     * @param body the new content of this chatmessage.
+     * @throws SkypeException when the connection has gone bad.
+     */
+    public void setContent(String body) throws SkypeException {
+        setProperty("BODY", body);
+    }
+    /**
      * Get the parent CHAT object for this CHATMESSAGE.
      * @see Chat
      * @return parent CHAT object.
@@ -233,6 +241,30 @@ public final class ChatMessage extends SkypeObject {
             users[i] = User.getInstance(ids[i]);
         }
         return users;
+    }
+
+    /**
+     * return wether this message is editable
+     * @return true if editable, false if not
+     * @throws SkypeException when the connection has gone bad
+     */
+    public boolean isEditable() throws SkypeException {
+	    String value = getProperty("IS_EDITABLE");
+	    if (value == null) return false;
+	    if ("true".equals(value.toLowerCase())) {
+		    return true;
+	    }
+	    return false;
+    }
+
+    /**
+     * Set CHATMESSAGE property.
+     * @param name of the property.
+     * @param value of the property.
+     * @throws SkypeException when connection has gone bad or property not found.
+     */
+    private void setProperty(String name, String value) throws SkypeException {
+        Utils.setProperty("CHATMESSAGE", getId(), name, value);
     }
 
     /**
