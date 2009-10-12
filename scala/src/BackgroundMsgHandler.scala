@@ -24,9 +24,8 @@ object BackgroundMsgHandler extends Actor {
                   m.getChat.send("Aber ich hab keine Lust " + what + " zu spielen")
                 }
                 case reViel() => {
-                  m.isEditable
                   for (i <- 0 until 7 ) {
-                  if (/*m.isEditable*/ true) {
+                  if (m.isEditable) {
                     val newContent = m.getContent.replaceFirst("viel viel", "viel viel viel")
                     m.setContent(newContent)
                   }
