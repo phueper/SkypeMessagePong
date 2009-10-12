@@ -18,7 +18,7 @@ object BackgroundMsgHandler extends Actor {
             }
             case ChatMessage.Status.SENT => { println("message sent...")
               val rePlay = new Regex(".*will (.*) spielen.*");
-              val reViel = new Regex(".*viel viel");
+              val reViel = new Regex(".*viel viel.*");
               m.getContent match {
                 case rePlay(what) => {
                   m.getChat.send("Aber ich hab keine Lust " + what + " zu spielen")
