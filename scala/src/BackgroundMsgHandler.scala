@@ -20,6 +20,10 @@ object BackgroundMsgHandler extends Actor {
                 case "xyzzy" => {
                   m.getChat.send("xyzzy?")
                 }
+                case "====" => {
+                  val pong = new Pong()
+                  pong.init(m)
+                }
               }
             }
             case ChatMessage.Status.SENT => { println("message sent...")
@@ -38,6 +42,10 @@ object BackgroundMsgHandler extends Actor {
                 }
                 case "xyzzy" => {
                   m.getChat.send("xyzzy?")
+                }
+                case "====" => {
+                  val pong = new Pong()
+                  pong.init(m)
                 }
                 case _ => println(m.getContent)
               }
