@@ -35,7 +35,10 @@ class Pong {
     } else {
       loopWhile(!gameFinished) {
         draw
-        receiveWithin(500) _
+        //receiveWithin(1000) _
+        /* yes, i know... Thread.sleep is supposedly not a good idea in scala... 
+         * still using it... somehow receiveWithin doesnt do the same thing */
+        Thread.sleep(500)
       }
     }
   }
@@ -73,8 +76,8 @@ class Pong {
         ballPosition.x = ballPosition.x + ballSpeed.v_x
         ballPosition.y = ballPosition.y + ballSpeed.v_y
         /* and check wether it hit the wall... then we need to invert the speed */
-        if (ballPosition.x >= fieldWidth) ballSpeed.v_x = ballSpeed.v_x * -1
-        if (ballPosition.x <= 0) ballSpeed.v_x = ballSpeed.v_x
+        if (ballPosition.x >= fieldWidth - 1) ballSpeed.v_x = ballSpeed.v_x * -1
+        if (ballPosition.x <= 1) ballSpeed.v_x = ballSpeed.v_x * -1
         /* TODO... y speed calc */
       }
       pongField += line
