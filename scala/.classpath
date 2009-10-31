@@ -3,6 +3,6 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="ch.epfl.lamp.sdt.launching.SCALA_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="lib/Skype4Java/release/skype_full.jar"/>
+	<classpathentry kind="lib" path="lib/Skype4Java/release/skype_full.jar" sourcepath="lib/Skype4Java/src"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
