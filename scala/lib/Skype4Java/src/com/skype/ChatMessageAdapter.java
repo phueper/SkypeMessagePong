@@ -37,4 +37,13 @@ public class ChatMessageAdapter implements ChatMessageListener {
 	 */
     public void chatMessageSent(ChatMessage sentChatMessage) throws SkypeException {
     }
+
+	/**
+	 * This method is called when a chat message has been edited.
+	 * @param sentChatMessage the sent message.
+	 * @throws SkypeException when a connection has gone bad.
+	 */
+    public void chatMessageEdited(ChatMessage sentChatMessage) throws SkypeException {
+    }
+    
 }
