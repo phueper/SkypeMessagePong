@@ -149,7 +149,7 @@ final class Utils {
     static void setProperty(String type, String id, String name, String value) throws SkypeException {
         try {
             String command = "SET " + type + " " + id + " " + name + " " + value;
-            String responseHeader = type + " " + id + " " + name + " " + value;
+            String responseHeader = type + " " + id + " " + name + " ";// + value;
             String response = Connector.getInstance().execute(command, responseHeader);
             checkError(response);
         } catch (ConnectorException e) {
